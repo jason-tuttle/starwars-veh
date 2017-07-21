@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import VehicleInfo from './VehicleInfo';
 import '../styles/App.css';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
       value: '',
       pilot: ''
     };
+
   }
 
 
@@ -61,23 +63,7 @@ class App extends Component {
   // Enter your code below:
 
   render() {
-    {/*
-    Store vehicles state in a variable.
-    Map over this variable to access the values needed to render.
-    */}
     const {vehicles, pilot, value} = this.state;
-    const vehicleProps = [
-      'name',
-      'model',
-      'manufacturer',
-      'vehicle_class',
-      'passengers',
-      'crew',
-      'length',
-      'max_atmosphering_speed',
-      'cargo_capacity'
-    ];
-
     return (
       <div className="App">
         {/*
@@ -85,19 +71,26 @@ class App extends Component {
          jumbotron section, form section, vehicle cards section.
          Your form will also need a header in which you will pass the state of the form upon submit.
          */}
-        <div className="jumbotron">Star Wars</div>
-        <div className="form">
-          <input onChange={this.handleChange} value={value} placeholder='Type your name, pilot!' /><br />
-          <button onClick={this.handleSubmit} className="btn btn-info">Submit</button>
+        <div className="jumbotron">
+          <h1>Star Wars</h1>
+          <h3>The Vehicles of Star Wars</h3>
+        </div>
+        <div className="form-group form">
+          <h2>What's your name, pilot?</h2>
+          <div className="col-lg-6 input">
+            <input className="form-control" onChange={this.handleChange} value={value} placeholder='Type your name, pilot!' /><br />
+            <button onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+          </div>
           <h1>{pilot}</h1>
         </div>
-        <div>
+        <div className="container-fluid row">
           {vehicles.map(vehicle => (
-            <div key={vehicle.name} className="card">
-              {vehicleProps.map(property =>
-                <p key={property} >{property}: {vehicle[property]}</p>
-              )}
-            </div>
+            <VehicleInfo
+              key={vehicle.name}
+              name={vehicle.name}
+              model={vehicle.model}
+              vehicle={vehicle}
+            />
           ))}
         </div>
       </div>
